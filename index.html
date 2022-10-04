@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>나랑 별보러 가자</title>
+	<style type="text/css">
+
+
+	@import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+		body{margin: 0; position: fixed; font-family: 'Jeju Myeongjo', serif;}
+
+		.word{opacity: 0; animation: fadein 1s forwards; color: white;}
+		@keyframes fadein{
+		to{opacity: .5;}
+		}
+
+		.stars{width: 8px; position: absolute; }
+		.stars2{width: 15px; position: absolute; }
+		h1{text-align: center; }
+		h2{text-align: center; animation: blink-effect 1s step-end infinite;}
+		@keyframes blink-effect{
+			50%{
+				opacity: 0;
+			}
+		}
+
+		#rect1{width: 100vw; height: 0vh; background: black; top: 0px; position: fixed; z-index: -1; text-shadow: 0px 0px 1px black;}
+		#rect2{width: 100vw; height: 0vh; background: black; bottom: 0px; position: fixed; z-index: -1;}
+		#night{background-size: contain; position: fixed; z-index: 9999;}
+		#TTT{position: relative; top: 100px; left: 200px; font-size: 15px; line-height: 1.7;text-shadow: 0px 0px 1px white;}
+
+
+
+	</style>
+</head>
+<body>
+			<div>
+			<div id="rect1">
+				<h1>나랑..별 보러 갈래?<h1>
+				<h2>(Press any keyboard to close your eyes)<h2>
+				<audio id=song src="song.mp3"></audio>
+			</div>
+			<div id="rect2"></div>
+			</div>
+			<div id="TTT"></div>
+	<script type="text/javascript">
+//=====가사======
+var poet = "찬 바람이 조금씩 불어 오면은<br>밤 하늘이 반짝이더라<br> 긴 하루를 보내고 집에 들어가는 길에<br> 네 생각이 문득 나더라<br> 어디야 지금 뭐 해<br> 나랑 별 보러 가지 않을래<br> 너희 집 앞으로 잠깐 나올래<br> 가볍게 겉옷 하나 걸치고서 나오면 돼<br> 너무 멀리 가지 않을게<br> 그렇지만 네 손을 꼭 잡을래<br> 멋진 별자리 이름은 모르지만<br> 나와 같이 가줄래<br> 찬 바람이 조금씩 불어 오면은<br> 네 생각이 난 그렇게 나더라<br> 긴 하루 끝 고요해진 밤거리를 걷다<br> 밤 하늘이 너무 좋더라<br> 어디야 지금 뭐해<br> 나랑 별 보러 가지 않을래<br> 어디든 좋으니 나와 가줄래<br> 네게 하고 싶었던 말이 너무도 많지만<br> 너무 서두르지 않을게<br> 그치만 네 손을 꼭 잡을래<br> 멋진 별자리 이름은 모르지만<br> 나와 같이 가줄래<br> 너와 나의 걸음이<br> 향해 가는 그곳이<br> 어디 일진 모르겠지만<br> 혼자였던 밤 하늘<br> 너와 함께 걸으면<br> 그거면 돼<br>";
+		var poetArr = poet.split(" ");
+//======가사=======
+		
+		
+		var y = 0;
+		window.onkeydown = function(){
+		y = y + 1;
+		rect1.style.height = y*10 + "vh";
+		rect2.style.height = y*10 + "vh";
+		if(y == 5){
+			song.play();
+			var myTimer = setInterval(print,1500);
+		var s=0;
+		function print(){
+			var t = document.createElement("span");
+			t.innerHTML =  poetArr[s] + " ";
+			t.className = "word";
+			s++;
+			TTT.appendChild(t); 
+
+			if(s == poetArr.length){
+				clearInterval(myTimer);
+			}
+		}
+			makeNight();
+			function makeNight(){
+				let timer = setInterval(randomStar,1000);	
+				let t = 0;
+				function randomStar(){
+					t++;
+					makestar();
+					makestar2();
+					if(t == 40){
+					clearInterval(timer);
+					}
+				}
+				}
+			}
+		}
+
+		function makestar(){
+			var a = document.createElement("img");
+			a.src = "star.png";
+			a.className = "stars"
+			var b = Math.random()*window.innerWidth;
+			var c = Math.random()*window.innerHeight;
+			a.style.left = b + "px";
+			a.style.top = c + "px";
+			a.onclick = function(){
+				a.parentNode.removeChild(a);
+				makestar();}
+			document.body.appendChild(a);
+			}
+
+		function makestar2(){
+			var a = document.createElement("img");
+			a.src = "star.png";
+			a.className = "stars2"
+			var b = Math.random()*window.innerWidth;
+			var c = Math.random()*window.innerHeight;
+			a.style.left = b + "px";
+			a.style.top = c + "px";
+			a.onclick = function(){
+				a.parentNode.removeChild(a);
+				makesta2();}
+			document.body.appendChild(a);
+			}
+
+
+
+
+	</script>
+</body>
+</html>
